@@ -80,7 +80,7 @@ def gulpease(doc:str) -> None:
             try:
                 assert idx >= 50
             except AssertionError:
-                raise AssertionError(f'Indice Gulpease per {file}: {idx} inferiore a 50')
+                raise AssertionError(f'::error::Indice Gulpease per {file}: {idx} \nL`indice deve essere superiore a 50')
 
 def main():
     doc = sys.argv[1]

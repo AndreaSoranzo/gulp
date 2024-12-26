@@ -19,7 +19,7 @@ jobs:
           echo "$changed_files"
           echo "$changed_document"
           echo "doc=$changed_document" >> $GITHUB_OUTPUT
-      - name : Install dependencies
+      - name : Calulate Gulpease index
         run: |
           if [ -n "${{ steps.find.outputs.doc }}" ]; then
             python3 .github/gulpease.py ${{ steps.find.outputs.doc }}
