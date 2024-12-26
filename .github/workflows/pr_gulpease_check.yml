@@ -22,5 +22,5 @@ jobs:
       - name : Install dependencies
         run: |
           if [ -n "${{ steps.find.outputs.doc }}" ]; then
-           echo ${{ steps.find.outputs.doc }}
+            python3 .github/gulpease.py ${{ steps.find.outputs.doc }}
           fi
