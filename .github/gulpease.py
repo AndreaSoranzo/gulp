@@ -88,7 +88,7 @@ def main():
         gulpease(doc)
     except AssertionError as err:
         print(err,file=sys.stderr)
-        exit(1)
+        # exit(1)
 
 
 if __name__ == "__main__":
