@@ -1,4 +1,4 @@
-name: Compile check LaTeX
+name: Gulpease Index
 on:
   pull_request:
     branches: 
