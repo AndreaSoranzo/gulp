@@ -23,6 +23,7 @@ jobs:
         run: |
           if [ -n "${{ steps.find.outputs.doc }}" ]; then
             # python3 .github/gulpease.py ${{ steps.find.outputs.doc }}
+            print ${{ steps.find.outputs.doc }}
           fi
   comment:
     runs-on: ubuntu-latest
