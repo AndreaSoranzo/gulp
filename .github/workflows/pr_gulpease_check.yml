@@ -7,6 +7,8 @@ on:
 jobs:
   test-gulpease:
     runs-on: ubuntu-latest
+    outputs:
+      idx: ${{ steps.value.outputs.idx }}
     steps:
       - uses: actions/checkout@v3
       - name: Find modified LaTeX files
@@ -20,13 +22,15 @@ jobs:
           echo "$changed_document"
           echo "doc=$changed_document" >> $GITHUB_OUTPUT
       - name : Calulate Gulpease index
+        id: value
         run: |
           if [ -n "${{ steps.find.outputs.doc }}" ]; then
             # python3 .github/gulpease.py ${{ steps.find.outputs.doc }}
-            print ${{ steps.find.outputs.doc }}
+            echo "666" >> "$GITHUB_OUTPUT"
           fi
   comment:
     runs-on: ubuntu-latest
+    needs: test-gulpease
     steps:
       - uses: actions/github-script@v7
         with:
@@ -36,5 +40,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
+              body: ${{ needs.test-gulpease.outputs.idx }}
             })
