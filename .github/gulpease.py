@@ -5,6 +5,7 @@ import pathlib as path
 
 DOCS_PATH = 'Docs'
 MIN_SENTENCE_LENGTH = 15
+MIN_INDEX = 0
 
 
 def format_text(path:str) -> str:
@@ -72,20 +73,27 @@ def is_checkable(file:str) -> bool:
     return ".tex" in file and "main" not in file and "titlepage" not in file
 
 
-def gulpease(doc:str) -> None:
+def gulpease(doc:str) -> tuple[int, int]:
     current_path = path.Path(doc)
+    tot=0
+    n_files=0
     for file in os.listdir(current_path): # for each file in a doc
         if is_checkable(file): 
+            n_files+=1
             idx = calculate_gulpease(str(current_path) + "/" + file)
             try:
-                assert idx >= 50
+                assert idx >= MIN_INDEX
             except AssertionError:
                 raise AssertionError(f'::error::Indice Gulpease per {file}: {idx} \n::error::L`indice deve essere superiore a 50')
+            tot+=idx
+    return (tot,n_files)
+
 
 def main():
     doc = sys.argv[1]
     try:
-        gulpease(doc)
+        result = gulpease(doc)
+        print(result[0]/result[1])
     except AssertionError as err:
         print(err,file=sys.stderr)
         exit(1)
