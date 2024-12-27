@@ -5,7 +5,7 @@ import pathlib as path
 
 DOCS_PATH = 'Docs'
 MIN_SENTENCE_LENGTH = 15
-MIN_INDEX = 0
+MIN_INDEX = 50
 
 
 def format_text(path:str) -> str:
