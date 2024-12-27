@@ -26,7 +26,7 @@ jobs:
         run: |
           if [ -n "${{ steps.find.outputs.doc }}" ]; then
             # python3 .github/gulpease.py ${{ steps.find.outputs.doc }}
-            echo "666" >> "$GITHUB_OUTPUT"
+            echo "idx=666" >> "$GITHUB_OUTPUT"
           fi
   comment:
     runs-on: ubuntu-latest
