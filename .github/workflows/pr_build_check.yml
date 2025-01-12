@@ -27,7 +27,10 @@ jobs:
           elif [ $(echo "$changed_document" | wc -l) -eq 0 ]; then 
             echo "No document was modified"
           fi
-          echo "doc=$changed_document" >> $GITHUB_OUTPUT
+
+          if [ $GITHUB_BASE_REF -ne "main" ]; then
+            echo "doc=$changed_document" >> $GITHUB_OUTPUT
+          fi
       - name : Install dependencies
         run: |
           if [ -n "${{ steps.find.outputs.doc }}" ]; then
