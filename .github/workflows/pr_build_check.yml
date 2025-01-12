@@ -6,7 +6,7 @@ on:
       - 'docs/**'
 jobs:
   test-build:
-    if: ${{ github.base_ref != 'main' }}
+    if: ${{ github.head_ref != 'main' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,7 +29,6 @@ jobs:
             echo "No document was modified"
           fi
           echo "${{ github.base_ref }}"
-          echo $GITHUB_BASE_REF
           echo "doc=$changed_document" >> $GITHUB_OUTPUT
       - name : Install dependencies
         run: |
