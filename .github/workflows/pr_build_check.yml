@@ -18,6 +18,10 @@ jobs:
           changed_document=$(echo "$changed_files" | cut -d/ -f1-3 | uniq) 
           echo "$changed_files"
           echo "$changed_document"
+
+          if [ $GITHUB_BASE_REF -ne "main" ]; then
+            echo "Sd"
+          fi
           
           if [ $(echo "$changed_document" | wc -l) -gt 1 ]; then
             echo "::error::You are supposed to modify one document per branch"
