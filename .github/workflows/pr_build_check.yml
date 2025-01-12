@@ -6,6 +6,7 @@ on:
       - 'docs/**'
 jobs:
   test-build:
+    if: ${{ github.base_ref != 'main' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,10 +19,8 @@ jobs:
           changed_document=$(echo "$changed_files" | cut -d/ -f1-3 | uniq) 
           echo "$changed_files"
           echo "$changed_document"
-
-          echo "$GITHUB_BASE_REF"
           
-          if [ $(echo "$changed_document" | wc -l) -gt 1 ] && [ "$GITHUB_BASE_REF" != "main" ]; then
+          if [ $(echo "$changed_document" | wc -l) -gt 1 ]; then
             echo "jhk"
             echo "::error::You are supposed to modify one document per branch"
             echo "::error::You modified: $changed_document"
@@ -30,9 +29,7 @@ jobs:
             echo "No document was modified"
           fi
 
-          if [ "$GITHUB_BASE_REF" != "main" ]; then
-            echo "doc=$changed_document" >> $GITHUB_OUTPUT
-          fi
+          echo "doc=$changed_document" >> $GITHUB_OUTPUT
       - name : Install dependencies
         run: |
           if [ -n "${{ steps.find.outputs.doc }}" ]; then
