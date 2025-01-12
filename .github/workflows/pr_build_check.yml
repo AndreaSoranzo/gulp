@@ -19,14 +19,17 @@ jobs:
           echo "$changed_files"
           echo "$changed_document"
           
-          if [ $(echo "$changed_document" | wc -l) -gt 1 ]; then
+          if [ $(echo "$changed_document" | wc -l) -gt 1 ] && [ $GITHUB_BASE_REF -ne "main" ]; then
+            echo "jhk"
             echo "::error::You are supposed to modify one document per branch"
             echo "::error::You modified: $changed_document"
             exit 1
           elif [ $(echo "$changed_document" | wc -l) -eq 0 ]; then 
             echo "No document was modified"
           fi
-          echo "doc=$changed_document" >> $GITHUB_OUTPUT
+          if [ $GITHUB_BASE_REF -ne "main" ]; then
+            echo "doc=$changed_document" >> $GITHUB_OUTPUT
+          fi
       - name : Install dependencies
         run: |
           if [ -n "${{ steps.find.outputs.doc }}" ]; then
