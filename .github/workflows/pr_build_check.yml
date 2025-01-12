@@ -18,6 +18,8 @@ jobs:
           changed_document=$(echo "$changed_files" | cut -d/ -f1-3 | uniq) 
           echo "$changed_files"
           echo "$changed_document"
+
+          echo "$GITHUB_BASE_REF"
           
           if [ $(echo "$changed_document" | wc -l) -gt 1 ] && [ "$GITHUB_BASE_REF" != "main" ]; then
             echo "jhk"
