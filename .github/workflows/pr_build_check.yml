@@ -6,6 +6,7 @@ on:
       - 'docs/**'
 jobs:
   test-build:
+    if: ${{ github.head_ref != 'main' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,12 +21,14 @@ jobs:
           echo "$changed_document"
           
           if [ $(echo "$changed_document" | wc -l) -gt 1 ]; then
+            echo "jhk"
             echo "::error::You are supposed to modify one document per branch"
             echo "::error::You modified: $changed_document"
             exit 1
           elif [ $(echo "$changed_document" | wc -l) -eq 0 ]; then 
             echo "No document was modified"
           fi
+          echo "${{ github.base_ref }}"
           echo "doc=$changed_document" >> $GITHUB_OUTPUT
       - name : Install dependencies
         run: |
