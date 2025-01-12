@@ -28,7 +28,7 @@ jobs:
           elif [ $(echo "$changed_document" | wc -l) -eq 0 ]; then 
             echo "No document was modified"
           fi
-
+          echo "${{ github.base_ref }}"
           echo "doc=$changed_document" >> $GITHUB_OUTPUT
       - name : Install dependencies
         run: |
